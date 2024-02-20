@@ -1,0 +1,6 @@
+.custom-datepicker .react-datepicker__input-container input {
+    width: 100%; /* 입력 필드 너비를 상위 요소에 맞춤 */
+    padding: 8px; /* 패딩 조정 */
+    border: 1px solid #ccc; /* 테두리 조정 */
+    border-radius: 10px; /* 테두리 둥글게 조정 */
+}
