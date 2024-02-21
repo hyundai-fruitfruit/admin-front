@@ -6,13 +6,13 @@
  * @desc [description]
  */
 import React, {useState, useRef, useEffect} from 'react';
-// import { DatePicker } from 'rsuite';
 import {Link} from 'react-router-dom';
 import Select from 'react-select';
 import Collapse from 'react-bootstrap/Collapse';
 import PageTitle from '../../layouts/PageTitle';
 import axios from 'axios';
 
+// tmp data
 const tableData = [
     {
         id: "1",
@@ -68,18 +68,33 @@ const tableData = [
 
 
 const Content = () =>{
-
     const [open, setOpen] = useState(true);
     const [open2, setOpen2] = useState(true);
-
     const [data, setData] = useState(
 		document.querySelectorAll("#content_wrapper tbody tr")
 	);
-
 	const sort = 8;
 	const activePag = useRef(0);
 	const [test, settest] = useState(0);
+    const [deleteItem, setDeleteItem] = useState(tableData);
     
+    // 이벤트 삭제 함수
+    const handleDelete = async (id) => {
+            try {
+                // API 호출
+                const response = await axios.delete(`/api/v1/admin/events/${id}`, {
+                    headers: {
+                        'Authorization': `Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIzMiIsImlhdCI6MTcwNzk3MzU3MiwiZXhwIjoyMDcwODUzNTcyfQ.XwBiQxnJUzSSdhLOQQj3aKS5erufHTuIgD0mGNw576iHLZmGjc5ei8ks2MgVV6m6SvNE3EjuK8GqnZqxhOKvXQ`,
+                    }
+                });
+    
+
+                setDeleteItem(prevItems => prevItems.filter(item => item.id !== id));
+    
+            } catch (error) {
+                console.error("이벤트 삭제 중 오류 발생:", error);
+            }
+    };
 	// Active data
 	const chageData = (frist, sec) => {
 		for (var i = 0; i < data.length; ++i) {
@@ -129,13 +144,13 @@ const Content = () =>{
 		settest(i);
 	};
    
-    const [deleteItem, setDeleteItem] = useState(tableData);
+    // const [deleteItem, setDeleteItem] = useState(tableData);
 
-    const handleDelete = ind => {
-        setDeleteItem(oldValues => {
-          return oldValues.filter((_, i) => i !== ind)
-        })
-    }
+    // const handleDelete = ind => {
+    //     setDeleteItem(oldValues => {
+    //       return oldValues.filter((_, i) => i !== ind)
+    //     })
+    // }
     return(
         <>            
             {/* <PageTitle  activeMenu={'Content'} motherMenu={"CMS"} /> */}
@@ -215,7 +230,7 @@ const Content = () =>{
                                                                     <i className="fa fa-edit"></i>
                                                                 </Link>
                                                                 <Link to={"#"} className="btn btn-danger btn-sm content-icon ms-1"
-                                                                    onClick={()=>handleDelete(ind)}
+                                                                    onClick={()=>handleDelete(item.id)}
                                                                 >
                                                                     <i className="fa fa-times"></i>
                                                                 </Link>
@@ -280,7 +295,6 @@ const Content = () =>{
                     </div>
                 </div>
             </div>
-            
         </>
     )
 }
