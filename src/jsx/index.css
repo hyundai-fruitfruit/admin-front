@@ -1,3 +1,25 @@
+/**
+ * @author 최성혁
+ * @email [cinemay33@gmail.com]
+ * @create date 2024-02-21 13:35:29
+ * @modify date 2024-02-21 13:35:48
+ * @desc [description]
+ */
+
+.custom-datepicker .react-datepicker__input-container input {
+  width: 100%; /* 입력 필드 너비를 상위 요소에 맞춤 */
+  padding: 8px; /* 패딩 조정 */
+  border: 1px solid #ccc; /* 테두리 조정 */
+  border-radius: 10px; /* 테두리 둥글게 조정 */
+}
+.time-picker-container {
+  display: flex;
+  gap: 20px; /* 컴포넌트 사이의 간격을 10px로 설정 */
+}
+.section-spacing {
+  margin-top: 20px; /* 위쪽 간격 조정 */
+  margin-bottom: 20px; /* 아래쪽 간격 조정 */
+}
 .testimonial-one img {
   display: unset !important;
   width: 90%;

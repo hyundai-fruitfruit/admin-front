@@ -1,3 +1,10 @@
+/**
+ * @author 최성혁
+ * @email [cinemay33@gmail.com]
+ * @create date 2024-02-21 13:35:06
+ * @modify date 2024-02-21 13:35:06
+ * @desc [description]
+ */
 import React, { useState } from 'react';
 import TimePickerPicker from 'react-time-picker';
 
@@ -15,13 +22,13 @@ function TimePicker() {
 }
 
 
-function CurrentTimePicker(){
-    const [value2, onChange2] = useState('10:00');
-    return(
+function CurrentTimePicker({ value, onChange }) {
+    return (
         <>
-            <TimePickerPicker onChange={onChange2} value={value2} />
+            <TimePickerPicker onChange={onChange} value={value} />
         </>
-    )
+    );
 }
+
 export {CurrentTimePicker};
 export default TimePicker;
