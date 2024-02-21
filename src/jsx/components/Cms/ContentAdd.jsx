@@ -15,7 +15,6 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { useNavigate } from 'react-router-dom';
 import dayjs from 'dayjs'
-
 import axios from 'axios';
 import '../../index.css'
 
@@ -89,7 +88,9 @@ const ContentAdd = () => {
     const getRewardTypeLabel = () => {
         switch(rewardType) {
             case 'COUPON': return '쿠폰';
-            case 'DISCOUNT': return '할인권';
+            case 'POINT': return '포인트';
+            case 'GIFT' : return '사은품';
+            case 'EVENT' : return '이벤트';
             case 'ETC': return '그 외';
             default: return '보상분류'; // 기본값 혹은 선택되지 않았을 때
         }
@@ -114,7 +115,7 @@ const ContentAdd = () => {
         const headers = {
             'Authorization': `Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIzMiIsImlhdCI6MTcwNzk3MzU3MiwiZXhwIjoyMDcwODUzNTcyfQ.XwBiQxnJUzSSdhLOQQj3aKS5erufHTuIgD0mGNw576iHLZmGjc5ei8ks2MgVV6m6SvNE3EjuK8GqnZqxhOKvXQ`
         };
-
+        console.log(eventDetails)
         try {
             // Axios를 사용한 POST 요청
             const response = await axios.post(API_ENDPOINT, eventDetails, { headers });
@@ -209,7 +210,9 @@ const ContentAdd = () => {
                         </Dropdown.Toggle>
                         <Dropdown.Menu>
                             <Dropdown.Item onClick={() => setRewardType('COUPON')}>쿠폰</Dropdown.Item>
-                            <Dropdown.Item onClick={() => setRewardType('DISCOUNT')}>할인권</Dropdown.Item>
+                            <Dropdown.Item onClick={() => setRewardType('POINT')}>포인트</Dropdown.Item>
+                            <Dropdown.Item onClick={() => setRewardType('GIFT')}>사은품</Dropdown.Item>
+                            <Dropdown.Item onClick={() => setRewardType('EVENT')}>이벤트</Dropdown.Item>
                             <Dropdown.Item onClick={() => setRewardType('ETC')}>그 외</Dropdown.Item>
                         </Dropdown.Menu>
                     </Dropdown>
