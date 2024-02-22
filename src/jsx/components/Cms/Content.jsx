@@ -88,7 +88,6 @@ const Content = () =>{
                     }
                 });
     
-
                 setDeleteItem(prevItems => prevItems.filter(item => item.id !== id));
     
             } catch (error) {
@@ -144,13 +143,7 @@ const Content = () =>{
 		settest(i);
 	};
    
-    // const [deleteItem, setDeleteItem] = useState(tableData);
 
-    // const handleDelete = ind => {
-    //     setDeleteItem(oldValues => {
-    //       return oldValues.filter((_, i) => i !== ind)
-    //     })
-    // }
     return(
         <>            
             {/* <PageTitle  activeMenu={'Content'} motherMenu={"CMS"} /> */}
@@ -166,7 +159,7 @@ const Content = () =>{
                             onClick={() => setOpen2(!open2)}
                         >
                             <div className="cpa">
-                                <i className="fa-solid fa-file-lines me-2" />Contact List
+                                <i className="fa-solid fa-file-lines me-2" />이벤트 리스트
                             </div>
                             <div className="tools">
                                 <Link to={"#"} className={`SlideToolHeader ${open2 ? 'collapse' : 'expand' }`}
@@ -226,7 +219,7 @@ const Content = () =>{
                                                             <td>{item.maxCount}</td>
                                                             <td>{item.visitedCount}</td>
                                                             <td className='text-end'>
-                                                                <Link to={"/add-content"} className="btn btn-warning btn-sm content-icon me-1">
+                                                                <Link to={`/add-content/${item.id}`} className="btn btn-warning btn-sm content-icon me-1">
                                                                     <i className="fa fa-edit"></i>
                                                                 </Link>
                                                                 <Link to={"#"} className="btn btn-danger btn-sm content-icon ms-1"

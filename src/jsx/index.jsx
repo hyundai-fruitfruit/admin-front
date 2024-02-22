@@ -154,6 +154,7 @@ const Markup = () => {
 	  // { url: 'email-template', component: <EmailTemplate/> },
 	  // { url: 'blog', component: <Blog/> },
 	   { url: 'add-content', component: <ContentAdd/> },
+     { url: 'add-content/:eventId', component: <ContentAdd/> },
 	  // { url: 'add-email', component: <AddMail/> },
 	  // { url: 'add-blog', component: <AddBlog/> },
 	  // { url: 'blog-category', component: <BlogCategory/> },

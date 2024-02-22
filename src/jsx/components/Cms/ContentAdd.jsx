@@ -5,7 +5,8 @@
  * @modify date 2024-02-21 13:33:04
  * @desc [description]
  */
-import React, { useState } from 'react';
+
+import React, { useState, useEffect } from 'react';
 import { Button, Dropdown } from 'react-bootstrap';
 import CkEditorBlog from '../Forms/CkEditor/CkEditorBlog';
 import DateRangePicker from "react-bootstrap-daterangepicker";
@@ -14,26 +15,33 @@ import { TimePicker } from '@mui/x-date-pickers/TimePicker';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'; 
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { useNavigate } from 'react-router-dom';
+import { useParams} from 'react-router-dom';
 import dayjs from 'dayjs'
 import axios from 'axios';
 import '../../index.css'
 
 const ContentAdd = () => {
-    const navigate = useNavigate(); // navigate
 
+    const navigate = useNavigate(); // navigate
+    const { eventId } = useParams(); // 이벤트 ID 추출
     const [title, setTitle] = useState(''); // 이벤트 제목
-    const [startDate] = useState(new Date());
-    const [endDate] = useState(new Date());
+    const [startDate,setStartDate] = useState(new Date());
+    const [endDate,setEndDate] = useState(new Date());
     const [maxCount,setMaxCount] = useState(0);
     const [editorContent,setEditorContent] = useState('');
 
     const [eventType, setEventType] = useState(''); // 이벤트 타입
     const [rewardType, setRewardType] = useState(''); // 보상 타입
+    const [couponType,setCouponType] = useState('쿠폰을 선택하세요'); // 쿠폰 타입
     
     const [timeRanges, setTimeRanges] = useState([]); // 시간 범위 목록을 관리하는 state
 
     const [selectedStartTime, setSelectedStartTime] = useState(dayjs());
     const [selectedEndTime, setSelectedEndTime] = useState(dayjs());
+
+    const [coupons,setCoupons] = useState([]);// 쿠폰 API
+    const [couponId,setCouponId] = useState(1); // 쿠폰 ID
+
 
     // 시간 부분만 추출 및 정수로 변환
     const activeTimeList = timeRanges.map((timeRange) => ({
@@ -50,7 +58,6 @@ const ContentAdd = () => {
 
         // 시간 범위 목록에 새로운 시간 범위 추가
         setTimeRanges([...timeRanges, newTimeRange]);
-
         // 선택된 시간 초기화
         setSelectedStartTime(dayjs());
         setSelectedEndTime(dayjs());
@@ -95,7 +102,7 @@ const ContentAdd = () => {
             default: return '보상분류'; // 기본값 혹은 선택되지 않았을 때
         }
     };
-    
+
     const handleEventSubmit = async () => {
         const eventDetails = {
             title,
@@ -104,6 +111,7 @@ const ContentAdd = () => {
             maxCount,
             eventType,
             rewardType,
+            couponId,
             content: editorContent,
             activeTimeList
         };
@@ -130,6 +138,24 @@ const ContentAdd = () => {
         }
     };
     
+    // 쿠폰 데이터를 불러오는 useEffect
+    useEffect(() => {
+        const fetchCoupons = async () => {
+            try {
+                const response = await axios.get('/api/v1/admin/coupons', {
+                    headers: {
+                        'Authorization': `Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIzMiIsImlhdCI6MTcwNzk3MzU3MiwiZXhwIjoyMDcwODUzNTcyfQ.XwBiQxnJUzSSdhLOQQj3aKS5erufHTuIgD0mGNw576iHLZmGjc5ei8ks2MgVV6m6SvNE3EjuK8GqnZqxhOKvXQ`
+                    }
+                });
+                setCoupons(response.data.data);
+            } catch (error) {
+                console.error("쿠폰 정보를 불러오는 중 오류 발생", error);
+            }
+        };
+        fetchCoupons();
+    }, []); 
+
+
 
     return (
         <>
@@ -217,6 +243,26 @@ const ContentAdd = () => {
                         </Dropdown.Menu>
                     </Dropdown>
                     </div>
+                    {rewardType === 'COUPON' && (
+                    <div className="col-xl-2 mb-3">
+                    <p className="mb-1">쿠폰 선택</p>
+                    <Dropdown>
+                        <Dropdown.Toggle variant="primary" id="dropdown-basic">
+                            {couponType}
+                        </Dropdown.Toggle>
+                        <Dropdown.Menu>
+                            {coupons.map((coupon, index) => (
+                                <Dropdown.Item key={index} onClick={() => {
+                                    setCouponType(coupon.content);
+                                    setCouponId(coupon.id);
+                                }}>
+                                    {coupon.content}
+                                </Dropdown.Item>
+                            ))}
+                        </Dropdown.Menu>
+                    </Dropdown>
+                    </div>
+                    )}
             </div>
             <div className='section-spacing'>
                 <label className='form-label'>내용</label>
