@@ -1,9 +1,9 @@
 /**
  * @author 최성혁
  * @email [cinemay33@gmail.com]
- * @create date 2024-02-21 13:33:19
- * @modify date 2024-02-21 13:33:19
- * @desc [description]
+ * @create date 2024-02-21 16:16:05
+ * @modify date 2024-02-21 16:16:05
+ * @desc [이벤트 삭제 기능]
  */
 import React, {useState, useRef, useEffect} from 'react';
 import {Link} from 'react-router-dom';

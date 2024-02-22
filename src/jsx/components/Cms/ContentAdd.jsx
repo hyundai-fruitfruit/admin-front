@@ -1,9 +1,9 @@
 /**
  * @author 최성혁
  * @email [cinemay33@gmail.com]
- * @create date 2024-02-21 13:33:04
- * @modify date 2024-02-21 13:33:04
- * @desc [description]
+ * @create date 2024-02-22 16:16:05
+ * @modify date 2024-02-22 16:16:05
+ * @desc [보상분류에서 쿠폰 선택시 정해진 쿠폰 리스트 선택]
  */
 
 import React, { useState, useEffect } from 'react';
