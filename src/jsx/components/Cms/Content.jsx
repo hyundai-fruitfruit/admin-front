@@ -3,146 +3,25 @@
  * @email [cinemay33@gmail.com]
  * @create date 2024-02-21 16:16:05
  * @modify date 2024-02-21 16:16:05
- * @desc [이벤트 삭제 기능]
+ * @desc 이벤트 조회,삭제 기능
  */
-import React, {useState, useRef, useEffect} from 'react';
+
+import React, {useState} from 'react';
 import {Link} from 'react-router-dom';
-import Select from 'react-select';
 import Collapse from 'react-bootstrap/Collapse';
-import PageTitle from '../../layouts/PageTitle';
-import axios from 'axios';
-
-// tmp data
-const tableData = [
-    {
-        id: "1",
-        title: "Title",
-        startDate: "2024-02-18",
-        endDate: "2024-02-19",
-        startTime: "14:00",
-        endTime: "15:00",
-        maxParticipants: 100,
-        currentParticipants: 5
-    },
-    {
-        id: "2",
-        title: "Title",
-        startDate: "2024-02-18",
-        endDate: "2024-02-19",
-        startTime: "14:00",
-        endTime: "15:00",
-        maxParticipants: 100,
-        currentParticipants: 5
-    },
-    {
-        id: "3",
-        title: "Title",
-        startDate: "2024-02-18",
-        endDate: "2024-02-19",
-        startTime: "14:00",
-        endTime: "15:00",
-        maxParticipants: 100,
-        currentParticipants: 5
-    },
-    {
-        id: "4",
-        title: "Title",
-        startDate: "2024-02-18",
-        endDate: "2024-02-19",
-        startTime: "14:00",
-        endTime: "15:00",
-        maxParticipants: 100,
-        currentParticipants: 5
-    },
-    {
-        id: "5",
-        title: "Title",
-        startDate: "2024-02-18",
-        endDate: "2024-02-19",
-        startTime: "14:00",
-        endTime: "15:00",
-        maxParticipants: 100,
-        currentParticipants: 5
-    }
-];
-
+import { useEvents } from '../../../hooks/useEvents.jsx'
 
 const Content = () =>{
-    const [open, setOpen] = useState(true);
+    const { events,deleteEvent } = useEvents();
     const [open2, setOpen2] = useState(true);
-    const [data, setData] = useState(
-		document.querySelectorAll("#content_wrapper tbody tr")
-	);
-	const sort = 8;
-	const activePag = useRef(0);
-	const [test, settest] = useState(0);
-    const [deleteItem, setDeleteItem] = useState(tableData);
     
-    // 이벤트 삭제 함수
+    // 이벤트 삭제 핸들러
     const handleDelete = async (id) => {
-            try {
-                // API 호출
-                const response = await axios.delete(`/api/v1/admin/events/${id}`, {
-                    headers: {
-                        'Authorization': `Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIzMiIsImlhdCI6MTcwNzk3MzU3MiwiZXhwIjoyMDcwODUzNTcyfQ.XwBiQxnJUzSSdhLOQQj3aKS5erufHTuIgD0mGNw576iHLZmGjc5ei8ks2MgVV6m6SvNE3EjuK8GqnZqxhOKvXQ`,
-                    }
-                });
-    
-                setDeleteItem(prevItems => prevItems.filter(item => item.id !== id));
-    
-            } catch (error) {
-                console.error("이벤트 삭제 중 오류 발생:", error);
-            }
+        if (window.confirm('이 이벤트를 삭제하시겠습니까?')) { 
+            await deleteEvent(id); 
+        }
     };
-	// Active data
-	const chageData = (frist, sec) => {
-		for (var i = 0; i < data.length; ++i) {
-			if (i >= frist && i < sec) {
-				data[i].classList.remove("d-none");
-			} else {
-				data[i].classList.add("d-none");
-			}
-		}
-	};
 
-    // 모든 정보 조회
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const response = await axios.get('/api/v1/admin/events', {
-                    headers: {
-                        'Authorization': `Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIzMiIsImlhdCI6MTcwNzk3MzU3MiwiZXhwIjoyMDcwODUzNTcyfQ.XwBiQxnJUzSSdhLOQQj3aKS5erufHTuIgD0mGNw576iHLZmGjc5ei8ks2MgVV6m6SvNE3EjuK8GqnZqxhOKvXQ`
-                    }
-                });
-                const sortedData = response.data.data.events.sort((a, b) => a.id - b.id);
-                setDeleteItem(sortedData);
-            } catch (error) {
-                console.error("API에서 데이터를 가져오는데 실패했습니다.", error);
-            }
-        };
-    
-        fetchData();
-    }, []);
-    
-    
-//    useEffect(() => {
-//       setData(document.querySelectorAll("#content_wrapper tbody tr"));      
-// 	}, [test]);
-
-
-
-   activePag.current === 0 && chageData(0, sort);
-  
-   let paggination = Array(Math.ceil(data.length / sort))
-      .fill()
-      .map((_, i) => i + 1);
-
-	const onClick = (i) => {
-		activePag.current = i;
-		chageData(activePag.current * sort, (activePag.current + 1) * sort);
-		settest(i);
-	};
-   
 
     return(
         <>            
@@ -173,10 +52,10 @@ const Content = () =>{
                                 <div className="card-body py-3">
                                     <div className="table-responsive order-list-table">
                                         <div id="content_wrapper" className="dataTables_wrapper no-footer">
-                                            <table className="table table-responsive-lg  table-condensed flip-content">
+                                            <table className="table table-responsive-lg table-condensed flip-content">
                                                 <thead>
                                                     <tr>
-                                                        <th className='text-black'>id</th>
+                                                        <th className='text-black'>ID</th>
                                                         <th className='text-black'>제목</th>
                                                         <th className='text-black'>시작일</th>
                                                         <th className='text-black'>종료일</th>
@@ -188,7 +67,7 @@ const Content = () =>{
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    {deleteItem.map((item, ind)=>(
+                                                    {events.map((item, ind) => (
                                                         <tr key={ind}>
                                                             <td>{item.id}</td>
                                                             <td>{item.title}</td>
@@ -215,7 +94,7 @@ const Content = () =>{
                                                                 ) : (
                                                                     '기본값'
                                                                 )}
-                                                            </td>                                          
+                                                            </td>
                                                             <td>{item.maxCount}</td>
                                                             <td>{item.visitedCount}</td>
                                                             <td className='text-end'>
@@ -232,54 +111,6 @@ const Content = () =>{
                                                     ))}
                                                 </tbody>
                                             </table>
-                                            <div className="d-sm-flex text-center justify-content-between align-items-center mt-3">
-                                                <div className="dataTables_info">
-                                                    Showing {activePag.current * sort + 1} to{" "}
-                                                    {data.length > (activePag.current + 1) * sort
-                                                        ? (activePag.current + 1) * sort
-                                                        : data.length}{" "}
-                                                    of {data.length} entries
-                                                </div>
-                                                <div
-                                                    className="dataTables_paginate paging_simple_numbers"
-                                                    id="example2_paginate"
-                                                >
-                                                    <Link
-                                                        className="paginate_button previous disabled"
-                                                        to="/content"
-                                                        onClick={() =>
-                                                        activePag.current > 0 &&
-                                                        onClick(activePag.current - 1)
-                                                        }
-                                                    >
-                                                        <i className="fa fa-angle-double-left" aria-hidden="true"></i>
-                                                    </Link>
-                                                    <span>
-                                                        {paggination.map((number, i) => (
-                                                        <Link
-                                                            key={i}
-                                                            to="/content"
-                                                            className={`paginate_button  ${
-                                                                activePag.current === i ? "current" : ""
-                                                            } `}
-                                                            onClick={() => onClick(i)}
-                                                        >
-                                                            {number}
-                                                        </Link>
-                                                        ))}
-                                                    </span>
-                                                    <Link
-                                                        className="paginate_button next"
-                                                        to="/content"
-                                                        onClick={() =>
-                                                        activePag.current + 1 < paggination.length &&
-                                                        onClick(activePag.current + 1)
-                                                        }
-                                                    >
-                                                        <i className="fa fa-angle-double-right" aria-hidden="true"></i>
-                                                    </Link>
-                                                </div>
-                                            </div>                                            
                                         </div>
                                     </div>
                                 </div>
