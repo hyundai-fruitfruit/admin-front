@@ -150,7 +150,7 @@ const Markup = () => {
 
     //CSM  Pages
 	  { url: 'content', component: <Content/> },
-	  // { url: 'menu', component: <Menu/> },
+	  { url: 'menu', component: <Menu/> },
 	  // { url: 'email-template', component: <EmailTemplate/> },
 	  // { url: 'blog', component: <Blog/> },
 	   { url: 'add-content', component: <ContentAdd/> },
