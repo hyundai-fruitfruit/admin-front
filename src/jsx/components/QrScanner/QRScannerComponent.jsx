@@ -3,7 +3,7 @@
  * @email osy9757@gmail.com
  * @create date 2024-02-27 03:21:10
  * @modify date 2024-02-27 03:21:10
- * @desc [description]
+ * @desc QRScanner 컴포넌트
  */
 import React, { useState, useEffect } from "react";
 import QrScanner from "react-qr-scanner";
