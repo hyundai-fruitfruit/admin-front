@@ -31,7 +31,6 @@ export const MenuList2 = [
                 title: 'Sidebar',
                 to: 'index-4',					
             },                                  
-              
         ],
     },
     // Event
@@ -45,10 +44,10 @@ export const MenuList2 = [
                 title:'이벤트 등록',
                 to:'content'
             },            
-            // {
-            //     title:'Menu',
-            //     to:'menu'
-            // },
+            {
+                title:'이벤트 레벨',
+                to:'menu'
+            },
             // {
             //     title:'Email Template',
             //     to:'email-template'

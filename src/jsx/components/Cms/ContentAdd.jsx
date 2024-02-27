@@ -3,19 +3,27 @@
  * @email [cinemay33@gmail.com]
  * @create date 2024-02-22 16:16:05
  * @modify date 2024-02-22 16:16:05
- * @desc [보상분류에서 쿠폰 선택시 정해진 쿠폰 리스트 선택]
+ * @desc 보상분류에서 쿠폰 선택시 정해진 쿠폰 리스트 선택
  */
-
 import React, { useState, useEffect } from 'react';
 import { Button, Dropdown } from 'react-bootstrap';
 import CkEditorBlog from '../Forms/CkEditor/CkEditorBlog';
-import DateRangePicker from "react-bootstrap-daterangepicker";
+//import DateRangePicker from "react-bootstrap-daterangepicker";
+import 'react-dates/initialize'; // 필수 초기화
+import 'react-dates/lib/css/_datepicker.css'; // 스타일시트 임포트
+import moment from 'moment'; // moment 임포트
+
+import { DateRangePicker } from 'react-dates';
+
 import { TextField } from '@mui/material';
 import { TimePicker } from '@mui/x-date-pickers/TimePicker';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'; 
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { useNavigate } from 'react-router-dom';
 import { useParams} from 'react-router-dom';
+import { useCoupons } from '../../../hooks/useCoupons.jsx'
+import { useCreateEvent } from '../../../hooks/useCreateEvent.jsx'
+
 import dayjs from 'dayjs'
 import axios from 'axios';
 import '../../index.css'
@@ -25,8 +33,10 @@ const ContentAdd = () => {
     const navigate = useNavigate(); // navigate
     const { eventId } = useParams(); // 이벤트 ID 추출
     const [title, setTitle] = useState(''); // 이벤트 제목
-    const [startDate,setStartDate] = useState(new Date());
-    const [endDate,setEndDate] = useState(new Date());
+
+    const [startDate,setStartDate] = useState(moment());
+    const [endDate,setEndDate] = useState(moment());
+    
     const [maxCount,setMaxCount] = useState(0);
     const [editorContent,setEditorContent] = useState('');
 
@@ -39,9 +49,13 @@ const ContentAdd = () => {
     const [selectedStartTime, setSelectedStartTime] = useState(dayjs());
     const [selectedEndTime, setSelectedEndTime] = useState(dayjs());
 
-    const [coupons,setCoupons] = useState([]);// 쿠폰 API
     const [couponId,setCouponId] = useState(1); // 쿠폰 ID
+    // DateRangePicker에서 사용될 상태 추가
+    const [focusedInput, setFocusedInput] = useState(null);
 
+
+    const coupons = useCoupons(); // useCoupons Hook 호출
+    const { handleCreateEvent, loading, error } = useCreateEvent();
 
     // 시간 부분만 추출 및 정수로 변환
     const activeTimeList = timeRanges.map((timeRange) => ({
@@ -115,46 +129,14 @@ const ContentAdd = () => {
             content: editorContent,
             activeTimeList
         };
-        
-        // API 엔드포인트 URL
-        const API_ENDPOINT = '/api/v1/admin/events';
-    
-        // 요청에 포함할 헤더
-        const headers = {
-            'Authorization': `Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIzMiIsImlhdCI6MTcwNzk3MzU3MiwiZXhwIjoyMDcwODUzNTcyfQ.XwBiQxnJUzSSdhLOQQj3aKS5erufHTuIgD0mGNw576iHLZmGjc5ei8ks2MgVV6m6SvNE3EjuK8GqnZqxhOKvXQ`
-        };
-        console.log(eventDetails)
         try {
-            // Axios를 사용한 POST 요청
-            const response = await axios.post(API_ENDPOINT, eventDetails, { headers });
-            console.log(response.data);
+            await handleCreateEvent(eventDetails);
             navigate('/content');
-            // 성공 시 처리 로직
-            // 예: 성공 알림 표시, 폼 초기화 
-        } catch (error) {
-            console.error('Event creation failed', error);
-            // 실패 시 처리 로직
-            // 예: 에러 메시지 표시
+        } catch(error){
+            console.log('Event creation failed',error);
         }
     };
     
-    // 쿠폰 데이터를 불러오는 useEffect
-    useEffect(() => {
-        const fetchCoupons = async () => {
-            try {
-                const response = await axios.get('/api/v1/admin/coupons', {
-                    headers: {
-                        'Authorization': `Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIzMiIsImlhdCI6MTcwNzk3MzU3MiwiZXhwIjoyMDcwODUzNTcyfQ.XwBiQxnJUzSSdhLOQQj3aKS5erufHTuIgD0mGNw576iHLZmGjc5ei8ks2MgVV6m6SvNE3EjuK8GqnZqxhOKvXQ`
-                    }
-                });
-                setCoupons(response.data.data);
-            } catch (error) {
-                console.error("쿠폰 정보를 불러오는 중 오류 발생", error);
-            }
-        };
-        fetchCoupons();
-    }, []); 
-
 
 
     return (
@@ -165,13 +147,23 @@ const ContentAdd = () => {
             </div>
             <div className='mb-3 section-spacing'>
             <label className='form-label'>이벤트기간</label>
+            <div className='dateRangePickerContainer'>
                 <DateRangePicker
-                    initialSettings={{ startDate: '10/5/2024', endDate: '3/6/2025' }}
-                    >
-                    <input type="text" className="form-control input-daterange-timepicker" />
-            </DateRangePicker>
+                    startDate={startDate} 
+                    startDateId="event-start-date"
+                    endDate={endDate} 
+                    endDateId="event-end-date"
+                    onDatesChange={({ startDate, endDate }) => {
+                        setStartDate(startDate);
+                        setEndDate(endDate);
+                    }}
+                    focusedInput={focusedInput}
+                    onFocusChange={focusedInput => setFocusedInput(focusedInput)}
+                />
+                </div>
             </div>
             <div className='section-spacing'>
+            <div className={`time-picker-container ${focusedInput ? 'hidden' : ''}`}>
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
                     <div className="col-md-6 col-xl-3 col-xxl-6 mb-3">
                         <div className="color-time-picker style-1">
@@ -194,10 +186,11 @@ const ContentAdd = () => {
                                     renderInput={(params) => <TextField {...params} />}
                                 />
                             </div>
+                            <Button onClick={handleAddTimeRange}>시간 추가</Button>
                         </div>
                     </div>
-                    <Button onClick={handleAddTimeRange}>시간 추가</Button>
                 </LocalizationProvider>
+                </div>
             </div>
             <div>
                 {timeRanges.map((range, index) => (
