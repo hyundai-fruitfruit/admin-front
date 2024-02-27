@@ -20,7 +20,7 @@ const EventModal = ({ show, handleClose, eventId }) => {
   };
 
   return (
-    <Modal show={show} onHide={handleClose} size="lg">
+    <Modal show={show} onHide={handleClose} size="">
       <Modal.Header closeButton>
         <Modal.Title>이벤트 QR 코드 스캔</Modal.Title>
       </Modal.Header>
