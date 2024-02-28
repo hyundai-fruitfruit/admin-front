@@ -26,7 +26,7 @@ const EventModal = ({ show, handleClose, eventId }) => {
       </Modal.Header>
       <Modal.Body>
         <div className="w-full h-full">
-          <QRScannerComponent handleScan={handleScanData} className="w-full h-full" />
+          <QRScannerComponent eventId={eventId} handleScan={handleScanData} className="w-full h-full" />
         </div>
         {scanResult && (
           <div>
