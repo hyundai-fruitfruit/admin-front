@@ -15,18 +15,20 @@
 import React, { useState, useEffect } from "react";
 import QrScanner from "react-qr-scanner";
 import { useParticipateEvent } from 'hooks/useEventParticipate';
+import { useSocket } from 'hooks/useSocket';
 
 const QRScannerComponent = ({ eventId, handleSuccess }) => {
   const [canScan, setCanScan] = useState(true);
   const [lastScannedTime, setLastScannedTime] = useState(0);
   const [memberId, setMemberId] = useState("");
   const { data, loading, error } = useParticipateEvent(eventId, memberId);
-  
 
+  useSocket();
+  
   useEffect(() => {
     if (data) {
-        console.log("data", data.success);
-        handleSuccess(data.success); // data.success 값이 변경될 때마다 부모 컴포넌트에 알립니다.
+      console.log("data", data.success);
+      handleSuccess(data.success); // data.success 값이 변경될 때마다 부모 컴포넌트에 알립니다.
     }
   }, [data]);
 
