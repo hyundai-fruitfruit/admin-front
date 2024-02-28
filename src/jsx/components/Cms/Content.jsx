@@ -15,51 +15,12 @@ import useGetEventMembers from "hooks/useGetEventMembers.jsx";
 import EventModal from "../Modal/eventmodal/EventModal.jsx";
 
 const Content = () => {
-  const { events, deleteEvent } = useEvents();
+  const { events, fetchEvents, deleteEvent } = useEvents();
   const { fetchEventMembers, members, error, loading } = useGetEventMembers();
   const [open2, setOpen2] = useState(true);
   const [modalShow, setModalShow] = useState(false);
   const [selectedEventId, setSelectedEventId] = useState(null);
   const [selectedEventIdForSpace, setSelectedEventIdForSpace] = useState(null);
-
-  const people = [
-    {
-      name: "Jane Doe",
-      title: "Software Engineer",
-      email: "jane.doe@example.com",
-      role: "Developer",
-    },
-    {
-      name: "John Smith",
-      title: "Product Manager",
-      email: "john.smith@example.com",
-      role: "Management",
-    },
-    {
-      name: "Alice Johnson",
-      title: "UI/UX Designer",
-      email: "alice.johnson@example.com",
-      role: "Design",
-    },
-    {
-      name: "Bob Brown",
-      title: "DevOps Specialist",
-      email: "bob.brown@example.com",
-      role: "Operations",
-    },
-    {
-      name: "Carol King",
-      title: "Marketing Director",
-      email: "carol.king@example.com",
-      role: "Marketing",
-    },
-    {
-      name: "Bob Brown",
-      title: "DevOps Specialist",
-      email: "bob.brown@example.com",
-      role: "Operations",
-    },
-  ];
 
   // 이벤트 삭제 핸들러
   const handleDelete = async (id) => {
@@ -71,6 +32,11 @@ const Content = () => {
   const handleModalOpen = (id) => {
     setSelectedEventId(id);
     setModalShow(true);
+  };
+
+  const handleClose = () => {
+    setModalShow(false);
+    fetchEvents();
   };
 
   const toggleSpace = async (id) => {
@@ -146,6 +112,7 @@ const Content = () => {
                                   <Link to={`/add-content/${item.id}`} className="btn btn-warning btn-sm content-icon me-1">
                                     <i className="fa fa-edit"></i>
                                   </Link>
+                                  ㅎ
                                   <Link to={"#"} className="btn btn-danger btn-sm content-icon me-1" onClick={() => handleDelete(item.id)}>
                                     <i className="fa fa-times"></i>
                                   </Link>
@@ -195,7 +162,7 @@ const Content = () => {
                               )}
                             </>
                           ))}
-                          <EventModal show={modalShow} handleClose={() => setModalShow(false)} eventId={selectedEventId} />
+                          <EventModal show={modalShow} handleClose={handleClose} eventId={selectedEventId}/>
                         </tbody>
                       </table>
                     </div>

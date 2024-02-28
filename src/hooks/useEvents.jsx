@@ -49,5 +49,5 @@ export const useEvents = () => {
     }
   }, [fetchEvents]); // fetchEvents를 의존성 배열에 포함
 
-  return { events, isLoading, error, deleteEvent }; 
+  return { events, isLoading, error, fetchEvents, deleteEvent }; 
 };
