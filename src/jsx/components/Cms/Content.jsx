@@ -10,11 +10,13 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Collapse from "react-bootstrap/Collapse";
 import { useEvents } from "../../../hooks/useEvents.jsx";
+import useGetEventMembers from "hooks/useGetEventMembers.jsx";
 
 import EventModal from "../Modal/eventmodal/EventModal.jsx";
 
 const Content = () => {
   const { events, deleteEvent } = useEvents();
+  const { fetchEventMembers, members, error, loading } = useGetEventMembers();
   const [open2, setOpen2] = useState(true);
   const [modalShow, setModalShow] = useState(false);
   const [selectedEventId, setSelectedEventId] = useState(null);
@@ -71,11 +73,13 @@ const Content = () => {
     setModalShow(true);
   };
 
-  const toggleSpace = (id) => {
+  const toggleSpace = async (id) => {
     if (selectedEventIdForSpace === id) {
       setSelectedEventIdForSpace(null); // 이미 선택된 이벤트를 다시 클릭하면 높이 초기화
     } else {
       setSelectedEventIdForSpace(id); // 새로운 이벤트 선택시 높이 설정
+      await fetchEventMembers(id);
+      console.log(members);
     }
   };
 
@@ -132,7 +136,9 @@ const Content = () => {
                                 <td>{item.eventActiveTimeZoneDto?.length > 0 ? item.eventActiveTimeZoneDto.map((timeZone, index) => <div key={index}>{timeZone.opennedAt} : 00</div>) : "기본값"}</td>
                                 <td>{item.eventActiveTimeZoneDto?.length > 0 ? item.eventActiveTimeZoneDto.map((timeZone, index) => <div key={index}>{timeZone.closedAt} : 00</div>) : "기본값"}</td>
                                 <td>{item.maxCount}</td>
-                                <td onClick={() => toggleSpace(item.id)}>{item.visitedCount}</td>
+                                <td onClick={() => toggleSpace(item.id)} style={{ color: "rgb(79, 70, 229)", cursor: "pointer" }}>
+                                  {item.visitedCount}
+                                </td>
                                 <td className="">
                                   <Link to="#" className="btn btn-success btn-sm content-icon me-1" onClick={() => handleModalOpen(item.id)}>
                                     <i className="fa fa-qrcode"></i>
@@ -148,33 +154,39 @@ const Content = () => {
                               {selectedEventIdForSpace === item.id && (
                                 <tr className={`${selectedEventIdForSpace === item.id ? "h-[30vh]" : "h-0"} flex flex-col justify-center`}>
                                   <td colSpan="9" className="">
-                                    <div className="inline-block min-w-full py-2 align-middle">
-                                      <table className="table table-responsive-lg table-condensed flip-content border">
+                                    <div className="inline-block min-w-full py-2 align-middle rounded-2xl ">
+                                      <table className="table table-responsive-lg table-condensed flip-content border rounded-2xl">
                                         <thead>
-                                          <tr className="text-center">
-                                            <th scope="col" className="py-3.5 text-sm font-semibold text-gray-900">
-                                              Name
+                                          <tr className="text-center" style={{ backgroundColor: "rgb(243, 244, 246)" }}>
+                                            <th scope="col" className="py-3.5 text-sm font-semibold">
+                                              이름
                                             </th>
-                                            <th scope="col" className="py-3.5 text-sm font-semibold text-gray-900">
-                                              Title
+                                            <th scope="col" className="py-3.5 text-sm font-semibold">
+                                              생년월일
                                             </th>
-                                            <th scope="col" className="py-3.5 text-sm font-semibold text-gray-900">
-                                              Email
+                                            <th scope="col" className="py-3.5 text-sm font-semibold">
+                                              이메일
                                             </th>
-                                            <th scope="col" className="py-3.5 text-sm font-semibold text-gray-900">
-                                              Role
+                                            <th scope="col" className="py-3.5 text-sm font-semibold">
+                                              가입일
                                             </th>
                                           </tr>
                                         </thead>
                                         <tbody className="divide-y divide-gray-200 bg-white">
-                                          {people.map((person) => (
-                                            <tr key={person.email} className="text-center">
-                                              <td className="whitespace-nowrap py-4 text-sm font-medium text-gray-900 sm:pl-6">{person.name}</td>
-                                              <td className="whitespace-nowrap py-4 text-sm text-gray-500">{person.title}</td>
-                                              <td className="whitespace-nowrap py-4 text-sm text-gray-500">{person.email}</td>
-                                              <td className="whitespace-nowrap py-4 text-sm text-gray-500">{person.role}</td>
+                                          {members?.data && members.data.length > 0 ? (
+                                            members.data.map((member, index) => (
+                                              <tr key={index} className="text-center">
+                                                <td>{member.memberName}</td>
+                                                <td>{member.memberBirth}</td>
+                                                <td>{member.memberEmail}</td>
+                                                <td>{member.memberJoinDate}</td>
+                                              </tr>
+                                            ))
+                                          ) : (
+                                            <tr>
+                                              <td colSpan="4">참여자 정보가 없습니다.</td>
                                             </tr>
-                                          ))}
+                                          )}
                                         </tbody>
                                       </table>
                                     </div>
