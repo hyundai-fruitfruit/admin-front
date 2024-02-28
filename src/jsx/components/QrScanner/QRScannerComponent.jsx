@@ -10,17 +10,25 @@
  * @email sangeun.e.9@gmail.com
  * @create date 2024-02-28 10:41:35
  * @modify date 2024-02-28 10:41:35
- * @desc QRScanner 컴포넌트
+ * @desc QR API 연결
  */
 import React, { useState, useEffect } from "react";
 import QrScanner from "react-qr-scanner";
 import { useParticipateEvent } from 'hooks/useEventParticipate';
 
-const QRScannerComponent = ({ eventId }) => {
+const QRScannerComponent = ({ eventId, handleSuccess }) => {
   const [canScan, setCanScan] = useState(true);
   const [lastScannedTime, setLastScannedTime] = useState(0);
   const [memberId, setMemberId] = useState("");
   const { data, loading, error } = useParticipateEvent(eventId, memberId);
+  
+
+  useEffect(() => {
+    if (data) {
+        console.log("data", data.success);
+        handleSuccess(data.success); // data.success 값이 변경될 때마다 부모 컴포넌트에 알립니다.
+    }
+  }, [data]);
 
   const handleScan = (data) => {
     const now = Date.now();

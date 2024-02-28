@@ -12,7 +12,7 @@ import api from 'api/api';
 export const participateEvent = async (eventId, memberId) => {
     try {
         const response = await api.post(`/api/v1/admin/events/${eventId}/participate?memberId=${memberId}`);
-        return response.data.data;
+        return response.data;
     } catch (error) {
         console.error(`Error: ${error}`);
         throw error;
