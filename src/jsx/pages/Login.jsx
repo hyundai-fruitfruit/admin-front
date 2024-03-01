@@ -10,14 +10,14 @@ import rainbow from '../../images/rainbow.gif';
 
 
 function Login(props) {
-	const [email, setEmail] = useState('demo@demo.com');
+	const [email, setEmail] = useState('admin@hyundai.com');
     let errorsObj = { email: '', password: '' };
     const [errors, setErrors] = useState(errorsObj);
     const [password, setPassword] = useState('123456');
 
     const dispatch = useDispatch();
 	const Nav = useNavigate();   
-   
+
     function onLogin(e) {
         e.preventDefault();
         let error = false;
@@ -45,16 +45,14 @@ function Login(props) {
 				<div className="account-info-area" style={{backgroundImage: "url("+ rainbow +")"}}>
 					<div className="login-content">
 						<p className="sub-title">Log in to your admin dashboard with your credentials</p>
-						<h1 className="title">The Evolution of <span>MotaAdmin</span></h1>
-						<p className="text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt</p>
+						<h1 className="title">The Evolution of Admin Page</h1>
 					</div>
 				</div>
 			</div>
 			<div className="col-lg-6 col-md-7 col-sm-12 mx-auto align-self-center">
 				<div className="login-form">
 					<div className="login-head">
-						<h3 className="title">Welcome Back</h3>
-						<p>Login page allows users to enter login credentials for authentication and access to secure content.</p>
+						<h3 className="title">Welcome Back office</h3>
 					</div>
 					<h6 className="login-title"><span>Login</span></h6>
 					<div className="row mb-5">
