@@ -112,7 +112,6 @@ const Content = () => {
                                   <Link to={`/add-content/${item.id}`} className="btn btn-warning btn-sm content-icon me-1">
                                     <i className="fa fa-edit"></i>
                                   </Link>
-                                  ㅎ
                                   <Link to={"#"} className="btn btn-danger btn-sm content-icon me-1" onClick={() => handleDelete(item.id)}>
                                     <i className="fa fa-times"></i>
                                   </Link>
