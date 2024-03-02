@@ -3,9 +3,12 @@ import { SVGICON } from "../../constant/theme";
 
 
 export const MenuList2 = [
+    // home
     {
-        title:'',
-        classStyle:"blank",
+        title:'Home',
+        classsChange: 'mm-collapse',
+        iconStyle: SVGICON.Box,
+        eventKey : "Dashboard",
         content : []
     },
     //Dashboard

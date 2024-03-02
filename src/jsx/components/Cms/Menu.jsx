@@ -24,16 +24,11 @@ const options = [
 
 
 const tableData = [
-    {number:"1", level:"0~1",content:"5만원 이상 구매시 10% 할인"},
-    {number:"2", level:"1~2",content:"5만원 이상 구매시 10% 할인"},
-    {number:"3", level:"2~3",content:"5만원 이상 구매시 10% 할인"},
-    {number:"4", level:"3~4",content:"5만원 이상 구매시 10% 할인"},
-    {number:"5", level:"4~5",content:"5만원 이상 구매시 10% 할인"},
-    {number:"6", level:"5~6",content:"5만원 이상 구매시 10% 할인"},
-    {number:"7", level:"6~7",content:"5만원 이상 구매시 10% 할인"},
-    {number:"8", level:"7~8",content:"5만원 이상 구매시 10% 할인"},
-    {number:"9", level:"8~9",content:"5만원 이상 구매시 10% 할인"},
-    {number:"10", level:"9~10",content:"5만원 이상 구매시 10% 할인"},
+    {number:"1", level:"0 - 1",content:"커피 무료 쿠폰"},
+    {number:"2", level:"1 - 2",content:"더현대 서울 내 모든 식당 10% 할인"},
+    {number:"3", level:"2 - 3",content:"더현대 서울 내 모든 의류 매장 10% 할인"},
+    {number:"4", level:"3 - 4",content:"쇼핑 매장 10000원 할인"},
+    {number:"5", level:"4 - 5",content:"현재 진행 중인 전시 입장권 2매"},
 ];
 
 const Menu = () =>{

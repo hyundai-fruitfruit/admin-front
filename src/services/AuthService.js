@@ -93,12 +93,12 @@ export function checkAutoLogin(dispatch, navigate) {
     tokenDetails = JSON.parse(tokenDetailsString);
     let expireDate = new Date(tokenDetails.expireDate);
     let todaysDate = new Date();
-
+    
     if (todaysDate > expireDate) {
         dispatch(Logout(navigate));
         return;
     }
-		
+	
     dispatch(loginConfirmedAction(tokenDetails));
 	
     const timer = expireDate.getTime() - todaysDate.getTime();
