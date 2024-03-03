@@ -12,6 +12,8 @@ import PaymentTable from './Elements/PaymentTable';
 import TopProducts from './Elements/TopProducts';
 import ActivityTab from './Elements/ActivityTab';
 import UserActivity from './Elements/UserActivity';
+import CouponUsageChart from '../charts/CouponChart/CouponUsageChart';
+import '../charts/CouponChart/CouponChartCss.css'
 
 const AreaChart2Canvas = loadable(() =>
 	pMinDelay(import("./Elements/AreaChart2Canvas"), 1000)
@@ -165,13 +167,15 @@ function AllSection(){
                             </div>
                         </div>
                     </div>	
-                    <div className="col-xl-8 col-xxl-8 col-lg-12 col-md-12">
+                    <div className="col-xl-8">
                         <div className="card">
-                            <div className="card-header border-0 pb-0">
-                                <h4 className="card-title">Recent Payments Queue</h4>
+                            <div className="card-header">
+                                <h4 className="card-title">Usage rate by coupon type</h4>
                             </div>
                             <div className="card-body">
-                                <PaymentTable />
+                                <div className='chart-container'>
+                                    <CouponUsageChart/>
+                                </div>
                             </div>
                         </div>	
                     </div>
