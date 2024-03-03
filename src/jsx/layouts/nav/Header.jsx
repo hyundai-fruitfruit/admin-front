@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import { Dropdown } from "react-bootstrap";
 
 /// Image
-import profile from "../../../images/profile/pic1.jpg";
+import profile from "../../../images/profile/small/sjsj.jpeg";
 import avatar from "../../../images/avatar/1.jpg";
 
 import LogoutPage from './Logout';
@@ -156,17 +156,7 @@ const Header = ({ onNote }) => {
 								</li>
 							)}
 			       <Dropdown as="li" className="nav-item  notification_dropdown ">
-                <Dropdown.Toggle variant="" as="a"
-                  className="nav-link bell ai-icon i-false c-pointer icon-bell-effect"                 
-                  role="button"
-                  data-toggle="dropdown"
-                >
-                  <svg id="icon-user" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="feather feather-bell">
-                      <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
-                      <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
-                  </svg>
-                  <div className="pulse-css"></div>
-                </Dropdown.Toggle>
+  
                 <Dropdown.Menu align="end" className="">
                   <div className="widget-media dz-scroll p-3 height380" style={{height: "380px"}}>
                     <ul className="timeline">
@@ -264,17 +254,14 @@ const Header = ({ onNote }) => {
                       />
                     </div> */}
                   </div>
-                  <Link className="all-notification" to="#">
-                    See all notifications <i className="ti-arrow-right" />
-                  </Link>
                 </Dropdown.Menu>
               </Dropdown>				
 			        <Dropdown as="li" className="nav-item dropdown header-profile">
                 <Dropdown.Toggle variant="" as="a" className="nav-link i-false c-pointer">
-                    <img src={profile} width={20} alt="" />
+                <img src={profile} width={20} alt="" />
                     <div className="header-info">
-                      <span>Hey, <strong>Joshua</strong></span>
-										  <small>Business Profile</small>
+                      <span>SJSJ</span>
+										  <small>Admin Profile</small>
                     </div>
                 </Dropdown.Toggle>
                 <Dropdown.Menu align="end" className="mt-0 dropdown-menu-end">
