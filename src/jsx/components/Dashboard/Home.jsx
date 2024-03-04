@@ -14,7 +14,7 @@ import ActivityTab from './Elements/ActivityTab';
 import UserActivity from './Elements/UserActivity';
 import CouponUsageChart from '../charts/CouponChart/CouponUsageChart';
 import '../charts/CouponChart/CouponChartCss.css'
-
+import CouponUsageBarChart from '../charts/CouponChart/CouponUsageBarChart';
 const AreaChart2Canvas = loadable(() =>
 	pMinDelay(import("./Elements/AreaChart2Canvas"), 1000)
 );
@@ -170,11 +170,12 @@ function AllSection(){
                     <div className="col-xl-8">
                         <div className="card">
                             <div className="card-header">
-                                <h4 className="card-title">Usage rate by coupon type</h4>
+                                <h4 className="card-title">쿠폰 유형별 사용률</h4>
                             </div>
                             <div className="card-body">
                                 <div className='chart-container'>
                                     <CouponUsageChart/>
+                                    <CouponUsageBarChart/>
                                 </div>
                             </div>
                         </div>	
