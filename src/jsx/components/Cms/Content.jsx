@@ -6,7 +6,7 @@
  * @desc 이벤트 조회,삭제 기능
  */
 
-import React, { useState } from "react";
+import React, { useState,useRef } from "react";
 import { Link } from "react-router-dom";
 import Collapse from "react-bootstrap/Collapse";
 import { useEvents } from "../../../hooks/useEvents.jsx";
@@ -21,6 +21,12 @@ const Content = () => {
   const [modalShow, setModalShow] = useState(false);
   const [selectedEventId, setSelectedEventId] = useState(null);
   const [selectedEventIdForSpace, setSelectedEventIdForSpace] = useState(null);
+
+  const sort = 10
+  const activePag = useRef(0);
+  let paggination = [1,2,3,4,5]
+
+
 
   // 이벤트 삭제 핸들러
   const handleDelete = async (id) => {
@@ -164,6 +170,41 @@ const Content = () => {
                           <EventModal show={modalShow} handleClose={handleClose} eventId={selectedEventId}/>
                         </tbody>
                       </table>
+                      <div className="d-sm-flex text-center justify-content-end align-items-center mt-3">
+                          <div className="dataTables_info">
+                          </div>
+                          <div
+                              className="dataTables_paginate paging_simple_numbers"
+                              id="example2_paginate"
+                              style={ { marginRight: '40px' }}
+                          >
+                              <Link
+                                  className="paginate_button previous disabled"
+                                  to="/content"
+                              >
+                                  <i className="fa fa-angle-double-left" aria-hidden="true"></i>
+                              </Link>
+                              <span>
+                                  {paggination.map((number, i) => (
+                                  <Link
+                                      key={i}
+                                      to="/content"
+                                      className={`paginate_button  ${
+                                          activePag.current === i ? "current" : ""
+                                      } `}
+                                  >
+                                      {number}
+                                  </Link>
+                                  ))}
+                              </span>
+                              <Link
+                                  className="paginate_button next"
+                                  to="/content"
+                              >
+                                  <i className="fa fa-angle-double-right" aria-hidden="true"></i>
+                              </Link>
+                          </div>
+                      </div>
                     </div>
                   </div>
                 </div>
