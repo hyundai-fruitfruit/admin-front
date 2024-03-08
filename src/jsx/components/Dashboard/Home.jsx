@@ -1,3 +1,10 @@
+/**
+ * @author 최성혁
+ * @email [cinemay33@gmail.com]
+ * @create date 2024-03-08 09:17:22
+ * @modify date 2024-03-08 09:17:22
+ * @desc 쿠폰,이벤트,월별 증가 회원 통계
+ */
 import React,{useContext, useEffect} from 'react';
 import {Link} from 'react-router-dom';
 import loadable from "@loadable/component";
@@ -10,11 +17,15 @@ import { Sparklines, SparklinesLine} from "react-sparklines";
 import { ThemeContext } from "../../../context/ThemeContext";
 import PaymentTable from './Elements/PaymentTable';
 import TopProducts from './Elements/TopProducts';
+import TopEventRates from './Elements/TopEventRates'
 import ActivityTab from './Elements/ActivityTab';
 import UserActivity from './Elements/UserActivity';
 import CouponUsageChart from '../charts/CouponChart/CouponUsageChart';
 import '../charts/CouponChart/CouponChartCss.css'
 import CouponUsageBarChart from '../charts/CouponChart/CouponUsageBarChart';
+import UserRegisterChart from '../charts/UserChart/UserRegisterChart';
+
+
 const AreaChart2Canvas = loadable(() =>
 	pMinDelay(import("./Elements/AreaChart2Canvas"), 1000)
 );
@@ -27,6 +38,7 @@ const ShareProfitCanvas2 = loadable(() =>
 const ActiveUserCanvas = loadable(() =>
 	pMinDelay(import("./Elements/ActiveUserCanvas"), 1000)
 );
+
 
 const sampleData = [  6,2,8,4,3,8,4,3,6,5,9,2, ];
 
@@ -106,66 +118,27 @@ function AllSection(){
                         </div>
                     </div>
                     <div className="col-xl-3 col-xxl-3 col-lg-6 col-sm-6">
-                        <div className="card overflow-hidden">
-                            <div className="card-body px-4 py-4">
-                                <h5 className="mb-3">1700 / <small className="text-primary">Sales Status</small></h5>
-                                <div className="chart-point">
-                                    <div className="check-point-area">											
-                                        <ShareProfitCanvas2 />
+                        <div className="card bg-primary overflow-hidden">
+                            <div className="card-body pb-0 px-4 pt-4">
+                                <div className="row">
+                                    <div className="col text-white">
+                                        <span>1년간 월별 증가 회원수</span>
+                                        <h5 className="text-white mb-2">570</h5>
                                     </div>
-                                    <ul className="chart-point-list">
-                                        <li><i className="fa fa-circle text-primary me-1" /> 40% Tickets</li>
-                                        <li><i className="fa fa-circle text-success me-1" /> 35% Events</li>
-                                        <li><i className="fa fa-circle text-warning me-1" /> 25% Other</li>
-                                    </ul>
                                 </div>
+                            </div>
+                            <div className="chart-wrapper px-2">									
+                                <UserRegisterChart />
                             </div>
                         </div>
                     </div>		
                     <div className="col-xl-4 col-xxl-4 col-lg-12 col-md-12">
-                        <div className="card">
-                            <div className="card-header border-0 pb-0">
-                                <h4 className="card-title">Timeline</h4>
-                            </div>
-                            <div className="card-body p-0">									
-                                <div id="DZ_W_TimeLine1" className="widget-timeline dz-scroll style-1 px-4 ms-2 py-2 my-4" style={{height:"250px"}}>
-                                    <ul className="timeline">
-                                        <li>
-                                            <div className="timeline-badge primary"></div>
-                                            <Link to={"#"} className="timeline-panel text-muted" >
-                                                <span>10 minutes ago</span>
-                                                <h6 className="mb-0">Youtube, a video-sharing website <strong className="text-primary">$500</strong>.</h6>
-                                            </Link>
-                                        </li>
-                                        <li>
-                                            <div className="timeline-badge info">
-                                            </div>
-                                            <Link to={"#"} className="timeline-panel text-muted">
-                                                <span>20 minutes ago</span>
-                                                <h6 className="mb-0">New order placed <strong className="text-info">#XF-2356.</strong></h6>
-                                                <p className="mb-0">Quisque a consequat ante Sit...</p>
-                                            </Link>
-                                        </li>
-                                        <li>
-                                            <div className="timeline-badge danger">
-                                            </div>
-                                            <Link to={"#"} className="timeline-panel text-muted">
-                                                <span>30 minutes ago</span>
-                                                <h6 className="mb-0">john just buy your product <strong className="text-warning">Sell $250</strong></h6>
-                                            </Link>
-                                        </li>
-                                        <li>
-                                            <div className="timeline-badge success">
-                                            </div>
-                                            <Link to={"#"} className="timeline-panel text-muted">
-                                                <span>15 minutes ago</span>
-                                                <h6 className="mb-0">StumbleUpon is acquired by eBay. </h6>
-                                            </Link>
-                                        </li>
-                                    </ul>
-                                </div>									
-                            </div>
-                        </div>
+                        <div className="card bg-secondary text-white">
+                                <div className="card-header pb-0 border-0">
+                                    <h4 className="card-title text-white">이벤트 참여율 TOP 5</h4>
+                                </div>
+                            <TopEventRates />
+                        </div>	
                     </div>	
                     <div className="col-xl-8">
                         <div className="card">
