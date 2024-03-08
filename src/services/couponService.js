@@ -9,7 +9,9 @@
 
 import axios from 'axios';
 
-const BASE_URL = '/api/v1/admin/coupons'; 
+
+const BASE_URL = `${process.env.REACT_APP_API_BASE_URL}/api/v1/admin/events`;
+
 const AUTH_HEADERS = { 
     'Authorization': `Bearer ${process.env.REACT_APP_AUTH_TOKEN}`
 };
