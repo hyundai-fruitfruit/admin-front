@@ -2,34 +2,32 @@ import React from 'react';
 import {Dropdown} from 'react-bootstrap';
 
 //images
-import avtar1 from './../../../../images/avatar/1.jpg';
+
+import mac from './../../../../images/store/macj.png'
+import northface from './../../../../images/store/northface.png'
+import kangol from './../../../../images/store/kangol.png'
+import simons from './../../../../images/store/simons2.png'
+import godiva from './../../../../images/store/godiva (1).png'
+import skechers from './../../../../images/store/skechers.png'
+
 import LineChartCanvas from './LineChartCanvas';
 
-function DropdownBlog(){
-	return(
-		<Dropdown className="dropdown">
-			<Dropdown.Toggle as="button"  type="button" className="btn btn-primary light sharp i-false" >
-				<svg width="20px" height="20px" viewBox="0 0 24 24" version="1.1">
-					<g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
-						<rect x="0" y="0" width="24" height="24"/>
-						<circle fill="#000000" cx="5" cy="12" r="2"/>
-						<circle fill="#000000" cx="12" cy="12" r="2"/>
-						<circle fill="#000000" cx="19" cy="12" r="2"/></g>
-					</svg>
-			</Dropdown.Toggle>
-			<Dropdown.Menu className="dropdown-menu">
-				<Dropdown.Item>Edit</Dropdown.Item>
-				<Dropdown.Item>Delete</Dropdown.Item>
-			</Dropdown.Menu>
-		</Dropdown>
-	)
-} 
 
 const timeline = [
-	{  title:'Dr Sultads Send You', demo:'image'},
-	{  title:'Resport created', demo:'name', },
-	{  title:'Reminder : Treatment', demo:'icon',  },
+  { storeName: '스케쳐스', title: '지금 스케쳐스로 가볼까?',demo :'image', image: skechers },
+  { storeName: '노스페이스', title: '봄 맞이 할인 이벤트', demo :'image',image: northface },
+  { storeName: '캉골', title: '3월 생일자 이벤트', demo :'image',image: kangol },
+  { storeName: '시몬스', title: '신혼부부 방문 이벤트', demo :'image',image: simons },
+  { storeName: '고디바', title: '화이트데이 이벤트', demo :'image',image: godiva },
+  { storeName: 'MAC', title: '퍼스널 컬러 진단 이벤트', demo :'image',image: mac },
 ];
+
+// 현재 날짜
+const currentDate = new Date().toLocaleDateString('ko-KR', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+});
 
 const TopProducts = () =>{
 	return(
@@ -43,7 +41,7 @@ const TopProducts = () =>{
 									{
 									    data.demo === "image" ? 
 											<div className="media me-2">
-												<img alt="man" width="50" src={avtar1} />
+												<img alt={data.storeName} width="50" src={data.image} />
 											</div>
 										:
 										data.demo === "name" ?
@@ -59,10 +57,9 @@ const TopProducts = () =>{
 										""
 									}
 									<div className="media-body">
-										<h5 className="mb-1 text-white">{data.title}</h5>
-										<small className="d-block">29 July 2021 - 02:26 PM</small>
+										<h5 className="mb-1 text-white">[{data.storeName}] - {data.title}</h5>
+										<small className="d-block">{currentDate}</small>
 									</div>
-									<DropdownBlog />
 								</div>
 							</li>
 						

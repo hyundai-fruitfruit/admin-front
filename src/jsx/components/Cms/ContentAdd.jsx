@@ -47,7 +47,7 @@ const ContentAdd = () => {
     const [timeRanges, setTimeRanges] = useState([]); // 시간 범위 목록을 관리하는 state
 
     const [selectedStartTime, setSelectedStartTime] = useState(dayjs());
-    const [selectedEndTime, setSelectedEndTime] = useState(dayjs());
+    const [selectedEndTime, setSelectedEndTime] = useState(dayjs().add(1, 'hour').set('minute', 0));
 
     const [couponId,setCouponId] = useState(1); // 쿠폰 ID
     // DateRangePicker에서 사용될 상태 추가
@@ -123,8 +123,8 @@ const ContentAdd = () => {
             startedAt: formatDate(startDate),
             finishedAt: formatDate(endDate),
             maxCount,
-            eventType,
-            rewardType,
+            eventType: eventType || 'RESTAURANT',
+            rewardType: rewardType || 'POINT',
             couponId,
             content: editorContent,
             activeTimeList
@@ -208,62 +208,20 @@ const ContentAdd = () => {
         </div>
 
         <div className="row picker-data align-items-start">			
-            <div className="col-xl-3  mb-3">
-                <p className="mb-1">이벤트 분류</p>
-                    <Dropdown>
-                        <Dropdown.Toggle variant="primary" id="dropdown-basic">
-                            {getEventTypeLabel()}
-                        </Dropdown.Toggle>
-                        <Dropdown.Menu>
-                            <Dropdown.Item onClick={() => setEventType('RESTAURANT')}>식당</Dropdown.Item>
-                            <Dropdown.Item onClick={() => setEventType('SHOPPING')}>쇼핑</Dropdown.Item>
-                            <Dropdown.Item onClick={() => setEventType('CAFE')}>카페</Dropdown.Item>
-                        </Dropdown.Menu>
-                    </Dropdown>
-                </div> 
-                <div className="col-xl-2 mb-3">
-                    <p className="mb-1">보상 분류</p>
-                    <Dropdown>
-                        <Dropdown.Toggle variant="primary" id="dropdown-basic">
-                            {getRewardTypeLabel()}
-                        </Dropdown.Toggle>
-                        <Dropdown.Menu>
-                            <Dropdown.Item onClick={() => setRewardType('COUPON')}>쿠폰</Dropdown.Item>
-                            <Dropdown.Item onClick={() => setRewardType('POINT')}>포인트</Dropdown.Item>
-                            <Dropdown.Item onClick={() => setRewardType('GIFT')}>사은품</Dropdown.Item>
-                            <Dropdown.Item onClick={() => setRewardType('EVENT')}>이벤트</Dropdown.Item>
-                            <Dropdown.Item onClick={() => setRewardType('ETC')}>그 외</Dropdown.Item>
-                        </Dropdown.Menu>
-                    </Dropdown>
-                    </div>
-                    {rewardType === 'COUPON' && (
-                    <div className="col-xl-2 mb-3">
-                    <p className="mb-1">쿠폰 선택</p>
-                    <Dropdown>
-                        <Dropdown.Toggle variant="primary" id="dropdown-basic">
-                            {couponType}
-                        </Dropdown.Toggle>
-                        <Dropdown.Menu>
-                            {coupons.map((coupon, index) => (
-                                <Dropdown.Item key={index} onClick={() => {
-                                    setCouponType(coupon.content);
-                                    setCouponId(coupon.id);
-                                }}>
-                                    {coupon.content}
-                                </Dropdown.Item>
-                            ))}
-                        </Dropdown.Menu>
-                    </Dropdown>
-                    </div>
-                    )}
             </div>
             <div className='section-spacing'>
-                <label className='form-label'>내용</label>
+                <label className='form-label'>미션 내용</label>
                 <div className="custom-ekeditor cms-radius add-content-ckeditor ">
                     <CkEditorBlog onChange={(data) => setEditorContent(removeHtmlTags(data))} />
                 </div>
             </div>
             <p/>
+            <div className='section-spacing'>
+                <label className='form-label'>보상 내용</label>
+                <div className="custom-ekeditor cms-radius add-content-ckeditor ">
+                    <CkEditorBlog onChange={() => {}} />
+                </div>
+            </div>
             <Button className="btn btn-primary" onClick={handleEventSubmit}>이벤트 등록하기</Button>
         </>
     );

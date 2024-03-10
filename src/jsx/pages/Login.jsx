@@ -44,8 +44,8 @@ function Login(props) {
 			<div className="col-lg-6 align-self-start">
 				<div className="account-info-area" style={{backgroundImage: "url("+ rainbow +")"}}>
 					<div className="login-content">
-						<p className="sub-title">Log in to your admin dashboard with your credentials</p>
-						<h1 className="title">The Evolution of Admin Page</h1>
+						<p className="sub-title">Log in to your admin dashboard</p>
+						<h1 className="title">The Hyundai Seoul</h1>
 					</div>
 				</div>
 			</div>

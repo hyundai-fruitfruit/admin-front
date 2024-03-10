@@ -19,7 +19,7 @@ export const useEvents = () => {
     setIsLoading(true);
     try {
       const response = await fetchAllEvents();
-      const eventData = response.data.events.sort((a, b) => a.id - b.id);
+      const eventData = response.data.events;
 
       if (Array.isArray(eventData)) {
         setEvents(eventData);
