@@ -2,13 +2,13 @@
  * @author 최성혁
  * @email [cinemay33@gmail.com]
  * @create date 2024-03-08 09:10:18
- * @modify date 2024-03-08 09:19:28
+ * @modify date 2024-03-10 13:48:23
  * @desc 이벤트 참여율 TOP 5
  */
 import React, { useState, useEffect } from 'react';
 import { ProgressBar } from 'react-bootstrap';
 
-// 날짜를 랜덤으로 생성하는 함수
+
 const getRandomDate = () => {
   const start = new Date(2023, 10, 11).getTime();
   const end = new Date(2024, 3, 15).getTime();
@@ -18,10 +18,10 @@ const getRandomDate = () => {
 const generateRandomEvents = () => {
   const events = [
     { title: '지금 스케쳐스로 가볼까?', participationRate: 70 },
-    { title: '새로운 이벤트 입니다.', participationRate: 60 },
-    { title: '뉴 이벤트', participationRate: 45 },
-    { title: '새 모험 시작', participationRate: 43 },
-    { title: '새로운 시작', participationRate: 41 },
+    { title: '주말 특별 캐시백 이벤트', participationRate: 60 },
+    { title: '신상품 런칭 기념 할인', participationRate: 45 },
+    { title: '오후 5시 이후 해피아워 할인', participationRate: 43 },
+    { title: '추석맞이 더블 경험치 증정 이벤트', participationRate: 41 },
   ];
 
   // 날짜를 랜덤으로 설정

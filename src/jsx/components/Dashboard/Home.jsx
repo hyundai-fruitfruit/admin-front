@@ -24,6 +24,12 @@ import CouponUsageChart from '../charts/CouponChart/CouponUsageChart';
 import '../charts/CouponChart/CouponChartCss.css'
 import CouponUsageBarChart from '../charts/CouponChart/CouponUsageBarChart';
 import UserRegisterChart from '../charts/UserChart/UserRegisterChart';
+import ChartGenderDoughnut from '../charts/Chartjs/ChartGenderDoughnut';
+import ChartCouponGenderDoughnut from '../charts/Chartjs/ChartCouponGenderDoughnut';
+import ChartGenerationDoughnut from '../charts/Chartjs/ChartGenerationDoughnut';
+import RecentVisit from '../charts/Chartjs/RecentVisit';
+import RevisitBarSales from '../charts/Chartjs/revisitBarSales';
+import RevisitBarCoupon from '../charts/Chartjs/revisitBarCoupon';
 
 
 const AreaChart2Canvas = loadable(() =>
@@ -54,7 +60,6 @@ const Home = () => {
         changeSideBarStyle({ value: "mini", label: "Mini" });
         chnageSidebarColor("color_3");
         changeNavigationHader("color_3");
-       
 	}, []);
 	return(
 		<>
@@ -70,72 +75,65 @@ function AllSection(){
                 <div className="row">
                     <div className="col-xl-3 col-xxl-3 col-lg-6 col-sm-6">
                         <div className="card overflow-hidden">
-                            <div className="card-body pb-0 px-4 pt-4">
-                                <div className="row">
-                                    <div className="col">
-                                        <h5 className="mb-1">2000</h5>
-                                        <span className="text-success">Total Sale</span>
-                                    </div>
-                                </div>
+                        <div className="card-body pb-0 px-4 pt-4">
+                            <div className="row">
+                            <div className="col">
+                                <h3 className="mb-1">매장 이용 연령대</h3>
                             </div>
-                            <div className="chart-wrapper">									
-                                <AreaChart2Canvas />
                             </div>
+                        </div>
+                        <div className="chart-wrapper mx-4">
+                            <ChartGenerationDoughnut />
+                        </div>
                         </div>
                     </div>
                     <div className="col-xl-3 col-xxl-3 col-lg-6 col-sm-6">
-                        <div className="card bg-success	overflow-hidden">
-                            <div className="card-body pb-0 px-4 pt-4">
-                                <div className="row">
-                                    <div className="col">
-                                        <h5 className="text-white mb-1">$14000</h5>
-                                        <span className="text-white">Total Eraning</span>
-                                    </div>
-                                </div>
+                        <div className="card overflow-hidden">
+                        <div className="card-body pb-0 px-4 pt-4">
+                            <div className="row">
+                            <div className="col">
+                                <h3 className="mb-1">매장 이용 성비</h3>
                             </div>
-                            <div className="chart-wrapper" style={{width:"100%"}}>
-                                <Sparklines data={sampleData}>
-                                    <SparklinesLine color="#39f4bc" 
-                                        style={{stroke : "#20dea6", strokeWidth: 1,fill: "#fff"}}
-                                    />
-                                </Sparklines>
                             </div>
+                        </div>
+                        <div className="chart-wrapper mx-4">
+                            <ChartGenderDoughnut />
+                        </div>
                         </div>
                     </div>
                     <div className="col-xl-3 col-xxl-3 col-lg-6 col-sm-6">
-                        <div className="card bg-primary overflow-hidden">
-                            <div className="card-body pb-0 px-4 pt-4">
-                                <div className="row">
-                                    <div className="col text-white">
-                                        <h5 className="text-white mb-1">570</h5>
-                                        <span>VIEWS OF YOUR PROJECT</span>
-                                    </div>
-                                </div>
+                        <div className="card overflow-hidden">
+                        <div className="card-body pb-0 px-4 pt-4">
+                            <div className="row">
+                            <div className="col text-white">
+                                <h3 className="mb-1">쿠폰 이용 성비</h3>
                             </div>
-                            <div className="chart-wrapper px-2">									
-                                <ChartWidget2 />
                             </div>
+                        </div>
+                        <div className="chart-wrapper mx-4">
+                            <ChartCouponGenderDoughnut />
+                        </div>
                         </div>
                     </div>
                     <div className="col-xl-3 col-xxl-3 col-lg-6 col-sm-6">
-                        <div className="card bg-primary overflow-hidden">
-                            <div className="card-body pb-0 px-4 pt-4">
+                        <div className="overflow-hidden card bg-primary">
+                            <div className="px-4 pt-4 pb-0 card-body">
                                 <div className="row">
-                                    <div className="col text-white">
+                                    <div className="text-white col">
                                         <span>1년간 월별 증가 회원수</span>
-                                        <h5 className="text-white mb-2">570</h5>
+                                        <h5 className="mb-2 text-white">570</h5>
                                     </div>
                                 </div>
                             </div>
-                            <div className="chart-wrapper px-2">									
+                            <div className="px-2 chart-wrapper">									
                                 <UserRegisterChart />
                             </div>
                         </div>
                     </div>		
                     <div className="col-xl-4 col-xxl-4 col-lg-12 col-md-12">
-                        <div className="card bg-secondary text-white">
-                                <div className="card-header pb-0 border-0">
-                                    <h4 className="card-title text-white">이벤트 참여율 TOP 5</h4>
+                        <div className="text-white card bg-secondary">
+                                <div className="pb-0 border-0 card-header">
+                                    <h4 className="text-white card-title">이벤트 참여율 TOP 5</h4>
                                 </div>
                             <TopEventRates />
                         </div>	
@@ -156,63 +154,42 @@ function AllSection(){
                 </div>	
             </div>	
             <div className="col-xl-3 col-xxl-4 col-lg-12 col-md-12">
-                <div className="card bg-primary text-white">
-                    <div className="card-header pb-0 border-0">
-                        <h4 className="card-title text-white">TOP PRODUCTS</h4>
+                <div className="text-white card bg-primary">
+                    <div className="pb-0 border-0 card-header">
+                        <h4 className="text-white card-title">현재 진행중인 이벤트 목록</h4>
                     </div>
                     <TopProducts />
                 </div>	
             </div>
             <div className="col-xl-3 col-xxl-4 col-lg-6 col-md-6">
-                <div className="card bg-info activity_overview">
-                    <div className="card-header  border-0 pb-3 ">
-                        <h4 className="card-title text-white">Activity</h4>
-                    </div>
-                    <ActivityTab />
-                </div>	
+                <div className="card activity_overview">
+                <div className="card-header  border-0 pb-3 ">
+                    <h4 className="card-title">재방문율</h4>
+                </div>
+                <div className="m-2">
+                    <RevisitBarCoupon />
+                </div>
+                </div>
             </div>
             <div className="col-xl-3 col-xxl-4 col-lg-6 col-md-6">
-                <div className="card active_users">
-                    <div className="card-header bg-success border-0 pb-0">
-                        <h4 className="card-title text-white">Active Users</h4>
-                    </div>
-                    <div className="bg-success">
-                        <ActiveUserCanvas />
-                    </div>
-                    <div className="card-body pt-0">
-                        <div className="list-group-flush mt-4">
-                            <div className="list-group-item bg-transparent d-flex justify-content-between px-0 py-1 font-weight-semi-bold border-0 border-bottom" 
-                                style={{borderColor: "rgba(255, 255, 255, 0.15)"}}
-                            >
-                                <p className="mb-0">Top Active Pages</p>
-                                <p className="mb-0">Active Users</p>
-                            </div>
-                            <div className="list-group-item bg-transparent d-flex justify-content-between px-0 py-1 border-0 border-bottom" 
-                                style={{borderColor: "rgba(255, 255, 255, 0.05)"}}
-                            >
-                                <p className="mb-0">/bootstrap-themes/</p>
-                                <p className="mb-0">3</p>
-                            </div>
-                            <div className="list-group-item bg-transparent d-flex justify-content-between px-0 py-1 border-0 border-bottom" 
-                                style={{borderColor: "rgba(255, 255, 255, 0.05)"}}
-                            >
-                                <p className="mb-0">/tags/html5/</p>
-                                <p className="mb-0">3</p>
-                            </div>								
-                            <div className="list-group-item bg-transparent d-flex justify-content-between px-0 py-1 border-0 border-bottom" 
-                                style={{borderColor: "rgba(255, 255, 255, 0.05)"}}
-                            >
-                                <p className="mb-0">/100-best-themes...all-time/</p>
-                                <p className="mb-0">1</p>
-                            </div>
-                        </div>
-                    </div>
+                <div className="card activity_overview">
+                <div className="card-header  border-0 pb-3 ">
+                    <h4 className="card-title">쿠폰 사용 매출</h4>
+                </div>
+                <div className="m-2">
+                    <RevisitBarSales />
+                </div>
                 </div>
             </div>
             <div className="col-xl-6 col-xxl-12 col-lg-12 col-md-12">
-                <UserActivity />
+                <div className="card bg-white activity_overview">
+                <div className="card-header  border-0 pb-3 ">
+                    <h4 className="card-title">시간대별 매장 이용객 수</h4>
+                </div>
+                <RecentVisit />
+                </div>
             </div>
-        </div>	
+                </div>	
     )
 }
 
