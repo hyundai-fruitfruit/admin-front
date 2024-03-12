@@ -14,18 +14,8 @@ const ChartGenerationDoughnut = ({ color1, color2, color3, color4, height, width
       {
         data: [40, 30, 20, 10],
         borderWidth: 0,
-        backgroundColor: [
-          `${color1 ? color1 : "rgba(58, 122, 254, 1)"}`,
-          `${color2 ? color2 : "rgba(58, 122, 254, 0.7)"}`,
-          `${color3 ? color3 : "rgba(58, 122, 254, 0.5)"}`,
-          `${color4 ? color4 : "rgba(0, 0, 0, 0.07)"}`,
-        ],
-        hoverBackgroundColor: [
-          `${color1 ? color1 : "rgba(58, 122, 254, 1)"}`,
-          `${color2 ? color2 : "rgba(58, 122, 254, 0.7)"}`,
-          `${color3 ? color3 : "rgba(58, 122, 254, 0.5)"}`,
-          `${color4 ? color4 : "rgba(0, 0, 0, 0.07)"}`,
-        ],
+        backgroundColor: [`${color1 ? color1 : "#0687F5"}`, `${color2 ? color2 : "#1DDE90"}`, `${color3 ? color3 : "#FDA52E"}`, `${color4 ? color4 : "#FD3C56"}`],
+        hoverBackgroundColor: [`${color1 ? color1 : "#0687F5"}`, `${color2 ? color2 : "#1DDE90"}`, `${color3 ? color3 : "#FDA52E"}`, `${color4 ? color4 : "#FD3C56"}`],
       },
     ],
     labels: ["20대", "30대", "40대", "50대 이상"],

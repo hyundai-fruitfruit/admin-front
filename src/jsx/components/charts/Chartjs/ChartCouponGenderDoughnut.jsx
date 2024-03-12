@@ -14,8 +14,8 @@ const ChartCouponGenderDoughnut = ({ color1, color2, color3, color4, height, wid
       {
         data: [21, 79],
         borderWidth: 0,
-        backgroundColor: [`${color1 ? color1 : "rgba(58, 122, 254, 1)"}`, `${color2 ? color2 : "rgba(58, 122, 254, 0.7)"}`],
-        hoverBackgroundColor: [`${color1 ? color1 : "rgba(58, 122, 254, 1)"}`, `${color2 ? color2 : "rgba(58, 122, 254, 0.7)"}`],
+        backgroundColor: [`${color1 ? color1 : "#0687F5"}`, `${color2 ? color2 : "#FD3C56"}`],
+        hoverBackgroundColor: [`${color1 ? color1 : "#0687F5"}`, `${color2 ? color2 : "#FD3C56"}`],
       },
     ],
     labels: ["남", "여"],
