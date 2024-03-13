@@ -3,7 +3,7 @@
  * @email osy9757@gmail.com
  * @create date 2024-02-28 14:58:28
  * @modify date 2024-02-28 14:58:28
- * @desc [description]
+ * @desc backend 이벤트 api 연결
  */
 import { useState } from "react";
 import { getEventMember } from "apis/request";

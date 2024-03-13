@@ -3,7 +3,7 @@
  * @email osy9757@gmail.com
  * @create date 2024-02-28 14:35:24
  * @modify date 2024-02-28 14:35:24
- * @desc [description]
+ * @desc 백엔드 api
  */
 import api from "./api";
 

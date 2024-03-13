@@ -1,51 +1,61 @@
-import React, { Component } from "react";
+/**
+ * @author 오수영
+ * @email osy9757@gmail.com
+ * @create date 2024-03-09 05:48:39
+ * @modify date 2024-03-09 05:48:39
+ * @desc 이벤트에 따른 재방문률
+ */
+import React, { useEffect, useState } from "react";
 import { Bar } from "react-chartjs-2";
+import { fetchRevisitRates } from "apis/request";
 
-class RevisitBarCoupon extends Component {
-  render() {
-    const data = {
-      labels: ["쿠폰 미사용", "쿠폰 사용"],
-      datasets: [
-        {
-          label: "Dataset 1",
-          data: [65, 82],
-          borderColor: "rgba(58, 122, 254, 1)",
-          borderWidth: "0",
-          backgroundColor: "rgba(58, 122, 254, 1)",
-        },
-        {
-          label: "Dataset 2",
-          data: [28, 48],
-          borderColor: "rgba(255, 99, 132, 1)",
-          borderWidth: "0",
-          backgroundColor: "rgba(255, 99, 132, 1)",
-        },
-      ],
+const RevisitBarCoupon = () => {
+  const [chartData, setChartData] = useState({ datasets: [] });
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data = await fetchRevisitRates();
+        const couponUsed = data.filter((item) => item.eventParticipation === "Y").map((item) => item.revisitRate);
+        const couponNotUsed = data.filter((item) => item.eventParticipation === "N").map((item) => item.revisitRate);
+
+        setChartData({
+          labels: ["쿠폰 미사용", "쿠폰 사용"],
+          datasets: [
+            {
+              label: "재방문률",
+              data: [couponNotUsed, couponUsed],
+              borderColor: "rgba(58, 122, 254, 1)",
+              backgroundColor: "rgba(58, 122, 254, 1)",
+            },
+          ],
+        });
+      } catch (error) {
+        console.error("Error fetching revisit rates:", error);
+      }
     };
 
-    const options = {
-      plugins: {
-        legend: {
-          display: false,
-        },
-      },
-      scales: {
-        y: {
-          beginAtZero: true,
-        },
-        x: {
-          barPercentage: 0.5,
-          categoryPercentage: 0.5,
-        },
-      },
-    };
+    fetchData();
+  }, []);
 
-    return (
-      <>
-        <Bar data={data} options={options} height={500} width={300} />
-      </>
-    );
-  }
-}
+  const options = {
+    plugins: {
+      legend: {
+        display: false,
+      },
+    },
+    scales: {
+      y: {
+        beginAtZero: true,
+      },
+      x: {
+        barPercentage: 0.5,
+        categoryPercentage: 0.5,
+      },
+    },
+  };
+
+  return <Bar data={chartData} options={options} height={500} width={300} />;
+};
 
 export default RevisitBarCoupon;
