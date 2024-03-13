@@ -42,7 +42,7 @@ class RevisitBarCoupon extends Component {
 
     return (
       <>
-        <Bar data={data} options={options} height={300} width={300} />
+        <Bar data={data} options={options} height={500} width={300} />
       </>
     );
   }

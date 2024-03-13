@@ -2,17 +2,16 @@ import React, { Component } from "react";
 import { Line } from "react-chartjs-2";
 
 const data = {
-  defaultFontFamily: "Poppins",
+  defaultFontFamily: "line",
   labels: ["9시", "10시", "11시", "12시", "13시", "14시", "15시", "16시", "17시", "18시"],
   datasets: [
     {
       label: "My First dataset",
-      data: [25, 20, 60, 41, 66, 45, 80, 45, 66, 20, 10],
+      data: [25, 70, 60, 81, 35, 25, 40, 15, 26, 60],
       borderColor: "rgba(58, 122, 254, 1)",
       borderWidth: "2",
       backgroundColor: "rgba(58, 122, 254,1)",
       pointBackgroundColor: "rgba(58, 122, 254,1)",
-      tension: 0.4,
     },
   ],
 };

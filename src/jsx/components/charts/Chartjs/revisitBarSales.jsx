@@ -4,21 +4,14 @@ import { Bar } from "react-chartjs-2";
 class RevisitBarSales extends Component {
   render() {
     const data = {
-      labels: ["쿠폰 미사용", "쿠폰 사용"],
+      labels: ["이벤트 미참여", "이벤트 참여"],
       datasets: [
         {
           label: "Dataset 1",
-          data: [78, 82],
-          borderColor: "rgba(58, 122, 254, 1)",
+          data: [1, 1.8],
+          borderColor: ["rgba(58, 122, 254, 1)", "rgba(255, 99, 132, 1)"],
           borderWidth: "0",
-          backgroundColor: "rgba(58, 122, 254, 1)",
-        },
-        {
-          label: "Dataset 2",
-          data: [23, 62],
-          borderColor: "rgba(255, 99, 132, 1)",
-          borderWidth: "0",
-          backgroundColor: "rgba(255, 99, 132, 1)",
+          backgroundColor: ["rgba(58, 122, 254, 1)", "rgba(255, 99, 132, 1)"],
         },
       ],
     };
@@ -31,7 +24,11 @@ class RevisitBarSales extends Component {
       },
       scales: {
         y: {
+          ticks: {
+            display: false,
+          },
           beginAtZero: true,
+          max: 2.5,
         },
         x: {
           barPercentage: 0.5,
@@ -42,7 +39,7 @@ class RevisitBarSales extends Component {
 
     return (
       <>
-        <Bar data={data} options={options} height={300} width={300} />
+        <Bar data={data} options={options} height={500} width={300} />
       </>
     );
   }
